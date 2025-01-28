@@ -102,9 +102,9 @@ const Login = () => {
                     </div>
 
                     {/* Role Selection */}
-                    <div className="mb-6">
+                    <div className="mb-4">
                         <Label className="block mb-2">Role</Label>
-                        <RadioGroup className="flex flex-col space-y-2">
+                        <RadioGroup className="flex space-x-6 sm:space-x-8">
                             <div className="flex items-center space-x-2">
                                 <Input
                                     type="radio"
@@ -113,9 +113,9 @@ const Login = () => {
                                     value="student"
                                     checked={input.role === 'student'}
                                     onChange={changeEventHandler}
-                                    className="cursor-pointer"
+                                    className="w-4 h-4 cursor-pointer"
                                 />
-                                <Label htmlFor="student">Student</Label>
+                                <Label htmlFor="student" className="cursor-pointer text-sm">Student</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Input
@@ -125,9 +125,9 @@ const Login = () => {
                                     value="recruiter"
                                     checked={input.role === 'recruiter'}
                                     onChange={changeEventHandler}
-                                    className="cursor-pointer"
+                                    className="w-4 h-4 cursor-pointer"
                                 />
-                                <Label htmlFor="recruiter">Recruiter</Label>
+                                <Label htmlFor="recruiter" className="cursor-pointer text-sm">Recruiter</Label>
                             </div>
                         </RadioGroup>
                     </div>
