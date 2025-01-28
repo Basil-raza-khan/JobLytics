@@ -37,51 +37,51 @@ const ApplicantsTable = () => {
                         <TableHead>Contact</TableHead>
                         <TableHead>Resume</TableHead>
                         <TableHead>Date</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
+                        <TableHead className="text-right hidden md:table-cell">Action</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {
                         applicants && applicants?.applications?.map((item) => (
-                            <tr key={item._id}>
+                            <TableRow key={item._id}>
                                 <TableCell>{item?.applicants?.fullname}</TableCell>
                                 <TableCell>{item?.applicants?.email}</TableCell>
                                 <TableCell>{item?.applicants?.phoneNumber}</TableCell>
-                                <TableCell >
+                                <TableCell>
                                     {
-                                        item.applicants?.profile?.resume ? <a className="text-blue-600 cursor-pointer" href={item?.applicants?.profile?.resume} target="_blank" rel="noopener noreferrer">{item?.applicants?.profile?.resumeOriginalName}</a> : <span>NA</span>
+                                        item.applicants?.profile?.resume ? 
+                                        <a className="text-blue-600 cursor-pointer" href={item?.applicants?.profile?.resume} target="_blank" rel="noopener noreferrer">
+                                            {item?.applicants?.profile?.resumeOriginalName}
+                                        </a> : <span>NA</span>
                                     }
                                 </TableCell>
                                 <TableCell>{applicants?.createdAt ? applicants.createdAt.split("T")[0] : "N/A"}</TableCell>
-                                <TableCell className="float-right cursor-pointer"> 
+                                <TableCell className="text-right md:table-cell">
                                     <Popover>
                                         <PopoverTrigger>
                                             <MoreHorizontal />
                                         </PopoverTrigger>
                                         <PopoverContent className="w-32">
                                             {
-                                                shortlistingStatus.map((status, index) => {
-                                                    return (
-                                                        <div onClick={() => statusHandler(status, item?._id)} key={index} className='flex w-fit items-center my-2 cursor-pointer'>
-                                                            <span>{status}</span>
-                                                        </div>
-                                                    )
-                                                })
+                                                shortlistingStatus.map((status, index) => (
+                                                    <div 
+                                                        onClick={() => statusHandler(status, item?._id)} 
+                                                        key={index} 
+                                                        className='flex w-fit items-center my-2 cursor-pointer'>
+                                                        <span>{status}</span>
+                                                    </div>
+                                                ))
                                             }
                                         </PopoverContent>
                                     </Popover>
-
                                 </TableCell>
-
-                            </tr>
+                            </TableRow>
                         ))
                     }
-
                 </TableBody>
-
             </Table>
         </div>
     )
 }
 
-export default ApplicantsTable
+export default ApplicantsTable;
