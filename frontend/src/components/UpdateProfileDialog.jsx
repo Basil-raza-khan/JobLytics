@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { Loader2 } from 'lucide-react'
+import { X, Loader2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { USER_API_END_POINT } from '@/utils/constant'
@@ -59,21 +59,21 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
-        } finally{
+        } finally {
             setLoading(false);
         }
         setOpen(false);
-        console.log(input);
     }
-
-
 
     return (
         <div>
             <Dialog open={open}>
                 <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
-                    <DialogHeader>
+                    <DialogHeader className="flex justify-between items-center">
                         <DialogTitle>Update Profile</DialogTitle>
+                        <Button variant="ghost" onClick={() => setOpen(false)}>
+                            <X className="h-5 w-5" />
+                        </Button>
                     </DialogHeader>
                     <form onSubmit={submitHandler}>
                         <div className='grid gap-4 py-4'>
@@ -81,7 +81,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Label htmlFor="name" className="text-right">Name</Label>
                                 <Input
                                     id="name"
-                                    name="name"
+                                    name="fullname"
                                     type="text"
                                     value={input.fullname}
                                     onChange={changeEventHandler}
@@ -103,7 +103,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Label htmlFor="number" className="text-right">Number</Label>
                                 <Input
                                     id="number"
-                                    name="number"
+                                    name="phoneNumber"
                                     value={input.phoneNumber}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
@@ -143,7 +143,13 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                         </div>
                         <DialogFooter>
                             {
-                                loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Update</Button>
+                                loading ? (
+                                    <Button className="w-full my-4">
+                                        <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait
+                                    </Button>
+                                ) : (
+                                    <Button type="submit" className="w-full my-4">Update</Button>
+                                )
                             }
                         </DialogFooter>
                     </form>
@@ -153,4 +159,4 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     )
 }
 
-export default UpdateProfileDialog
+export default UpdateProfileDialog;
