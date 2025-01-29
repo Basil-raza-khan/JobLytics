@@ -141,7 +141,7 @@ const Navbar = () => {
                                         variant="outline"
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
-                                        <span className="text-[#ffffff]">Login</span>
+                                        <span className="text-[#000000]">Login</span>
                                     </Button>
                                 </Link>
                                 <Link to="/signup">
