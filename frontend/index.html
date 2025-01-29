@@ -5,69 +5,18 @@
     <link rel="icon" type="image/png" href="/rbi.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JobLytics</title>
-    <style>
-      /* Style for the loader container */
-      #loader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #2F4F4F; /* Dark background with opacity */
-        backdrop-filter: blur(8px); /* Blurred background */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        transition: all 0.8s ease-in-out;
-      }
-
-      /* Bouncing animation */
-      .bounce {
-        animation: bounce 1s ease-in-out infinite;
-      }
-
-      @keyframes bounce {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-100px); /* Increased bounce height */
-        }
-      }
-
-      /* Loader image styling */
-      .loader-image {
-        width: 150px; /* Increased size */
-        height: 150px;
-        transition: all 0.8s ease-in-out;
-      }
-
-      /* Fade-out and move animation */
-      .fade-out {
-        background: rgba(0, 0, 0, 0); /* Remove the background */
-        backdrop-filter: blur(0); /* Remove the blur */
-        align-items: flex-start;
-        justify-content: flex-start;
-      }
-
-      .fade-out .loader-image {
-        width: 50px;
-        height: 50px;
-        margin: 10px;
-      }
-    </style>
+    
   </head>
   <body>
     <!-- Loader container -->
-    <div id="loader">
+    <!-- <div id="loader">
       <img src="/rbi.png" alt="RBI Logo" class="bounce loader-image" />
-    </div>
+    </div> -->
 
     <!-- Application root -->
-    <div id="root" style="display: none;"></div>
+      <div id="root"></div>
 
-    <script type="module">
+    <!-- <script type="module">
       // Simulate app loading (replace this with your app initialization logic)
       document.addEventListener("DOMContentLoaded", () => {
         const loader = document.getElementById("loader");
@@ -82,7 +31,7 @@
           }, 800); // Match the CSS transition duration
         }, 2000); // 2-second delay for demonstration
       });
-    </script>
+    </script> -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

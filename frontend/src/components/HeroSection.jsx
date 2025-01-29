@@ -34,20 +34,19 @@ const HeroSection = () => {
   };
 
   useEffect(() => {
-    gsap.fromTo(
-      "h1 span",
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, stagger: 0.2, duration: 1, ease: "power4.out" }
-    );
-    gsap.fromTo(
+    const tl = gsap.timeline();
+
+    // Animate entire content block from left with elastic effect
+    tl.fromTo(
+      ".content-block",
+      { x: -300, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.5, ease: "elastic.out(1, 0.8)" }
+    )
+    .fromTo(
       ".search-bar",
-      { opacity: 0, scale: 0.9 },
-      { opacity: 1, scale: 1, duration: 1, delay: 0.5, ease: "elastic.out(1, 0.5)" }
-    );
-    gsap.fromTo(
-      ".bg-gray-950",
-      { opacity: 0 },
-      { opacity: 1, duration: 1.5, ease: "power2.out" }
+      { x: -300, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.2, ease: "elastic.out(1, 0.5)" },
+      "-=1.2"
     );
   }, []);
 
@@ -58,7 +57,7 @@ const HeroSection = () => {
       }}
       className="relative grid min-h-screen place-content-center overflow-hidden bg-gray-950 px-4 py-24 text-gray-200"
     >
-      <div className="relative z-10 flex flex-col items-center text-center">
+      <div className="content-block relative z-10 flex flex-col items-center text-center">
         <span className="mx-auto px-4 py-2 rounded-full bg-gray-100 text-[#F83002] font-medium text-sm md:text-base">
           No. 1 Job Hunt Website
         </span>
