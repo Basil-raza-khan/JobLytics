@@ -10,7 +10,7 @@ const filterOptions = [
   { type: "Salary", options: ["0-40k", "42-1lakh", "1lakh to 5lakh"] },
 ];
 
-const FilterDropdown = () => {
+const FilterDropDown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const dispatch = useDispatch();
@@ -57,4 +57,4 @@ const FilterDropdown = () => {
   );
 };
 
-export default FilterDropdown;
+export default FilterDropDown;
