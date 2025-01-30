@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Button } from '../ui/button';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { LogOut, User2, Menu, X } from 'lucide-react';
@@ -140,13 +135,13 @@ const Navbar = () => {
                                     </Link>
                                 </>
                             ) : (
-                                <Popover>
-                                    <PopoverTrigger asChild>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
                                         <Avatar className="cursor-pointer hover:ring-2 hover:ring-[#6A38C2]">
                                             <AvatarImage src={user?.profile?.profilePhoto} alt="Profile" />
                                         </Avatar>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-80 bg-gray-900 border-gray-800 text-white">
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-80 bg-gray-900 border-gray-800 text-white">
                                         <div className="space-y-4">
                                             <div className="flex gap-3 items-center">
                                                 <Avatar className="ring-2 ring-[#6A38C2]">
@@ -164,8 +159,8 @@ const Navbar = () => {
                                             </div>
                                             <div className="space-y-2">
                                                 {user.role === 'student' && (
-                                                    <Button 
-                                                        asChild 
+                                                    <Button
+                                                        asChild
                                                         variant="ghost"
                                                         className="w-full justify-start hover:bg-gray-800"
                                                     >
@@ -185,8 +180,8 @@ const Navbar = () => {
                                                 </Button>
                                             </div>
                                         </div>
-                                    </PopoverContent>
-                                </Popover>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             )}
                         </div>
                     </div>
@@ -203,16 +198,16 @@ const Navbar = () => {
                                     )}
                                 </Button>
                             </DropdownMenuTrigger>
-                            
-                            <DropdownMenuContent 
-                                align="end" 
+
+                            <DropdownMenuContent
+                                align="end"
                                 className="bg-gray-950 text-white border-gray-800 w-64"
                             >
                                 {user && user.role === 'recruiter' ? (
                                     <>
                                         <DropdownMenuItem asChild>
-                                            <Link 
-                                                to="/admin/companies" 
+                                            <Link
+                                                to="/admin/companies"
                                                 className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
@@ -220,8 +215,8 @@ const Navbar = () => {
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem asChild>
-                                            <Link 
-                                                to="/admin/jobs" 
+                                            <Link
+                                                to="/admin/jobs"
                                                 className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
@@ -232,8 +227,8 @@ const Navbar = () => {
                                 ) : (
                                     <>
                                         <DropdownMenuItem asChild>
-                                            <Link 
-                                                to="/" 
+                                            <Link
+                                                to="/"
                                                 className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
@@ -241,8 +236,8 @@ const Navbar = () => {
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem asChild>
-                                            <Link 
-                                                to="/jobs" 
+                                            <Link
+                                                to="/jobs"
                                                 className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
@@ -250,8 +245,8 @@ const Navbar = () => {
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem asChild>
-                                            <Link 
-                                                to="/browse" 
+                                            <Link
+                                                to="/browse"
                                                 className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
@@ -266,13 +261,13 @@ const Navbar = () => {
                                 {!user ? (
                                     <>
                                         <DropdownMenuItem asChild>
-                                            <Link 
-                                                to="/login" 
+                                            <Link
+                                                to="/login"
                                                 className="w-full hover:bg-gray-800"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
-                                                <Button 
-                                                    variant="outline" 
+                                                <Button
+                                                    variant="outline"
                                                     className="w-full bg-transparent hover:bg-gray-800 border-gray-700"
                                                 >
                                                     <span className="text-white">Login</span>
@@ -280,8 +275,8 @@ const Navbar = () => {
                                             </Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem asChild>
-                                            <Link 
-                                                to="/signup" 
+                                            <Link
+                                                to="/signup"
                                                 className="w-full hover:bg-gray-800"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
@@ -294,47 +289,31 @@ const Navbar = () => {
                                 ) : (
                                     <>
                                         <DropdownMenuItem asChild>
-                                            <div className="w-full p-0">
-                                                <Popover>
-                                                    <PopoverTrigger className="w-full text-left">
-                                                        <div className="flex items-center gap-2 hover:bg-gray-800 p-2 rounded">
-                                                            <Avatar className="h-8 w-8">
-                                                                <AvatarImage 
-                                                                    src={user?.profile?.profilePhoto} 
-                                                                    alt="Profile" 
-                                                                />
-                                                            </Avatar>
-                                                            <span className="text-[#6A38C2]">Profile</span>
-                                                        </div>
-                                                    </PopoverTrigger>
-                                                    <PopoverContent 
-                                                        className="bg-gray-900 border-gray-800 text-white w-48"
-                                                        align="start"
-                                                    >
-                                                        <div className="space-y-2">
-                                                            {user.role === 'student' && (
-                                                                <Button 
-                                                                    asChild 
-                                                                    variant="ghost"
-                                                                    className="w-full justify-start hover:bg-gray-800"
-                                                                >
-                                                                    <Link to="/profile" className="text-[#6A38C2]">
-                                                                        <User2 className="mr-2 h-4 w-4" />
-                                                                        View Profile
-                                                                    </Link>
-                                                                </Button>
-                                                            )}
-                                                            <Button
-                                                                onClick={logoutHandler}
-                                                                variant="ghost"
-                                                                className="w-full justify-start hover:bg-gray-800 text-[#6A38C2]"
-                                                            >
-                                                                <LogOut className="mr-2 h-4 w-4" />
-                                                                Logout
-                                                            </Button>
-                                                        </div>
-                                                    </PopoverContent>
-                                                </Popover>
+                                            <Link
+                                                to="/profile"
+                                                className="w-full hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    <span>View Profile</span>
+                                                    <Avatar className="h-6 w-6">
+                                                        <AvatarImage
+                                                            src={user?.profile?.profilePhoto}
+                                                            alt="Profile"
+                                                        />
+                                                    </Avatar>
+                                                    
+                                                </div>
+                                            </Link>
+
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            onClick={logoutHandler}
+                                            className="w-full hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <LogOut className="h-4 w-4" />
+                                                <span>Logout</span>
                                             </div>
                                         </DropdownMenuItem>
                                     </>
