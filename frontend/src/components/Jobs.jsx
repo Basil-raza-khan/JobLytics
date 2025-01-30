@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./shared/Navbar";
 import FilterCard from "./FilterCard";
+import FilterDropdown from "./FilterDropdown"; // New dropdown filter
 import Job from "./Job";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -60,8 +61,13 @@ const Jobs = () => {
       <div className="relative z-10 max-w-7xl mx-auto mt-5 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-5">
           {/* FilterCard Section */}
-          <div className="w-full lg:w-1/4">
+          <div className="hidden lg:block w-full lg:w-1/4">
             <FilterCard />
+          </div>
+          
+          {/* Mobile Filter Dropdown */}
+          <div className="lg:hidden">
+            <FilterDropdown />
           </div>
 
           {/* Jobs Section */}

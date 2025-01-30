@@ -6,15 +6,15 @@ import { setSearchedQuery } from '@/redux/jobSlice';
 
 const fitlerData = [
     {
-        fitlerType: "Location",
+        filterType: "Location",
         array: ["Karachi", "Punjab", "Lahore", "Islamabad"],
     },
     {
-        fitlerType: "Industry",
+        filterType: "Industry",
         array: ["Frontend Developer", "Backend Developer", "FullStack Developer", "ML Engineer"],
     },
     {
-        fitlerType: "Salary",
+        filterType: "Salary",
         array: ["0-40k", "42-1lakh", "1lakh to 5lakh"],
     },
 ];
@@ -28,8 +28,9 @@ const FilterCard = () => {
     };
 
     useEffect(() => {
+        // Dispatch the selected filter value to update the jobs in the parent component
         dispatch(setSearchedQuery(selectedValue));
-    }, [selectedValue]);
+    }, [selectedValue, dispatch]);
 
     return (
         <div className='w-full bg-white p-3 rounded-md shadow-sm'>
@@ -38,7 +39,7 @@ const FilterCard = () => {
             <RadioGroup value={selectedValue} onValueChange={changeHandler}>
                 {fitlerData.map((data, index) => (
                     <div key={index} className='mb-4'>
-                        <h1 className='font-bold text-md mb-2'>{data.fitlerType}</h1>
+                        <h1 className='font-bold text-md mb-2'>{data.filterType}</h1>
                         {data.array.map((item, idx) => {
                             const itemId = `id${index}-${idx}`;
                             return (
