@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./shared/Navbar";
 import FilterCard from "./FilterCard";
-import FilterDropdown from "./FilterDropdown"; // New dropdown filter
+import FilterDropDown from "./FilterDropDown"; // New dropdown filter
 import Job from "./Job";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -67,7 +67,7 @@ const Jobs = () => {
           
           {/* Mobile Filter Dropdown */}
           <div className="lg:hidden">
-            <FilterDropdown />
+            <FilterDropDown />
           </div>
 
           {/* Jobs Section */}
