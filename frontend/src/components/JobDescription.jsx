@@ -37,6 +37,8 @@ const roadmapMapping = {
     "front-end": "frontend",
     "ux design": "ux-design",
     "typescript": "typescript",
+    "content writer": "technical-writer",
+    "software engineer": "software-architect",
     "aws": "best-practices/aws",
     "devops": "devops",
     "qa": "qa",
