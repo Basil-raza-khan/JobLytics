@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 import { Search } from "lucide-react";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,8 @@ const HeroSection = () => {
   const navigate = useNavigate();
   const color = useMotionValue(COLORS_TOP[0]);
   const [animateLogo, setAnimateLogo] = useState(false);
+  const textRef = useRef(null);
+  const searchBarRef = useRef(null);
 
   useEffect(() => {
     animate(color, COLORS_TOP, {
@@ -25,16 +27,20 @@ const HeroSection = () => {
       repeat: Infinity,
       repeatType: "mirror",
     });
+
+    gsap.fromTo(
+      textRef.current,
+      { x: "-100%", opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.2, ease: "elastic.out(1, 0.8)" }
+    );
+
+    gsap.fromTo(
+      searchBarRef.current,
+      { x: "-100%", opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.4, ease: "elastic.out(1, 0.8)", delay: 0.2 }
+    );
   }, []);
 
-  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
-
-  const searchJobHandler = () => {
-    dispatch(setSearchedQuery(query));
-    navigate("/browse");
-  };
-
-  // Function to trigger logo animation
   const handleAnimateLogo = () => {
     setAnimateLogo(true);
 
@@ -67,6 +73,12 @@ const HeroSection = () => {
       }
     );
   };
+  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
+
+  const searchJobHandler = () => {
+    dispatch(setSearchedQuery(query));
+    navigate("/browse");
+  };
 
   return (
     <motion.div
@@ -92,14 +104,14 @@ const HeroSection = () => {
           Connecting Talent with Opportunity
         </span>
 
-
-        <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold">
+        <h1 ref={textRef} className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold">
           Your Gateway to <br /> <span className="text-[#6A38C2]">Career Success</span>
         </h1>
         <p className="mt-3 text-sm sm:text-base md:text-lg px-4 sm:px-0">
           Find your dream job or hire the perfect candidate <br /> JobLytics makes job hunting and recruitment easier than ever.
         </p>
         <div
+          ref={searchBarRef}
           className="search-bar flex w-full sm:w-[80%] md:w-[60%] lg:w-[80%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-4 mx-auto mt-6"
         >
           <input
