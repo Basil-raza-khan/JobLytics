@@ -60,7 +60,7 @@ const getRoadmapUrl = (jobTitle) => {
       return `https://roadmap.sh/${url}`;
     }
   }
-  return 'https://roadmap.sh'; // Fallback URL
+  return 'https://roadmap.sh/roadmaps'; // Fallback URL
 };
 
 const JobDescription = () => {

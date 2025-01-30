@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from '../ui/button';
 import { Avatar, AvatarImage } from '../ui/avatar';
-import { LogOut, User2, Menu, X } from 'lucide-react'; // Added Menu and X icons for mobile
+import { LogOut, User2, Menu, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -13,7 +24,7 @@ import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
 import { motion, useMotionTemplate, useMotionValue, animate } from 'framer-motion';
 
-const DIM_COLORS = ["#2F4F4F", "#708090", "#778899", "#B0C4DE"]; // Dimmer colors
+const DIM_COLORS = ["#2F4F4F", "#708090", "#778899", "#B0C4DE"];
 
 const Navbar = () => {
     const { user } = useSelector((store) => store.auth);
@@ -48,15 +59,9 @@ const Navbar = () => {
         }
     };
 
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
     return (
         <motion.div
-            style={{
-                backgroundImage,
-            }}
+            style={{ backgroundImage }}
             className="relative bg-gray-950"
         >
             {/* Stars Animation */}
@@ -69,136 +74,273 @@ const Navbar = () => {
             {/* Navbar Content */}
             <div className="relative z-10 bg-opacity-70 bg-gray-950">
                 <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
-                    {/* Logo and Brand Name */}
+                    {/* Logo */}
                     <div className="flex items-center gap-2">
                         <img src="rbi.png" alt="Logo" className="h-8 w-8" />
                         <h1 className="text-2xl font-bold">
                             <Link to="/">
-                                <span className="text-[#ffffff]">Job</span><span className="text-[#02e8f8]">Lytics</span>
+                                <span className="text-white">Job</span>
+                                <span className="text-[#02e8f8]">Lytics</span>
                             </Link>
                         </h1>
                     </div>
 
-                    {/* Hamburger Menu for Mobile */}
-                    <div className="md:hidden">
-                        <Button variant="" onClick={toggleMobileMenu}>
-                            {isMobileMenuOpen ? <X /> : <Menu />}
-                        </Button>
-                    </div>
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center gap-8">
+                        <nav className="flex items-center gap-6">
+                            <ul className="flex items-center gap-6 text-white font-medium">
+                                {user && user.role === 'recruiter' ? (
+                                    <>
+                                        <li>
+                                            <Link to="/admin/companies" className="hover:text-[#02e8f8] transition-colors">
+                                                Companies
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/admin/jobs" className="hover:text-[#02e8f8] transition-colors">
+                                                Jobs
+                                            </Link>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li>
+                                            <Link to="/" className="hover:text-[#02e8f8] transition-colors">
+                                                Home
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/jobs" className="hover:text-[#02e8f8] transition-colors">
+                                                Jobs
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/browse" className="hover:text-[#02e8f8] transition-colors">
+                                                Browse
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
+                            </ul>
+                        </nav>
 
-                    {/* Navigation and User Actions */}
-                    <div
-                        className={`md:flex items-center gap-12 ${isMobileMenuOpen ? 'block' : 'hidden'
-                            }`}
-                    >
-                        <ul className="flex flex-col md:flex-row font-medium items-center gap-5 text-[#ffffff]">
-                            {user && user.role === 'recruiter' ? (
+                        {/* Desktop User Actions */}
+                        <div className="flex items-center gap-4">
+                            {!user ? (
                                 <>
-                                    <li>
-                                        <Link
-                                            to="/admin/companies"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            Companies
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/admin/jobs"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            Jobs
-                                        </Link>
-                                    </li>
+                                    <Link to="/login">
+                                        <Button variant="outline" className="bg-transparent hover:bg-gray-800">
+                                            <span className="text-white">Login</span>
+                                        </Button>
+                                    </Link>
+                                    <Link to="/signup">
+                                        <Button className="bg-[#6A38C2] hover:bg-[#5b30a6]">
+                                            Signup
+                                        </Button>
+                                    </Link>
                                 </>
                             ) : (
-                                <>
-                                    <li>
-                                        <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                                            Home
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/jobs" onClick={() => setIsMobileMenuOpen(false)}>
-                                            Jobs
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/browse"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            Browse
-                                        </Link>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
-                        {!user ? (
-                            <div className="flex flex-col md:flex-row items-center gap-2 text-[#ffffff]">
-                                <Link to="/login">
-                                    <Button
-                                        variant="outline"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        <span className="text-[#000000]">Login</span>
-                                    </Button>
-                                </Link>
-                                <Link to="/signup">
-                                    <Button
-                                        className="bg-[#6A38C2] hover:bg-[#5b30a6]"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        Signup
-                                    </Button>
-                                </Link>
-                            </div>
-                        ) : (
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Avatar className="cursor-pointer">
-                                        <AvatarImage
-                                            src={user?.profile?.profilePhoto}
-                                            alt="@shadcn"
-                                        />
-                                    </Avatar>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-80 text-[#ffffff]">
-                                    <div className="">
-                                        <div className="flex gap-2 space-y-2">
-                                            <Avatar className="cursor-pointer ring-2 ring-offset-2 ring-[#6A38C2] ring-offset-gray-950 text-[#ffffff]">
-                                                <AvatarImage
-                                                    src={user?.profile?.profilePhoto}
-                                                    alt="@shadcn"
-                                                />
-                                            </Avatar>
-                                            <div>
-                                                <h4 className="font-medium">{user?.fullname}</h4>
-                                                <p className="text-sm text-muted-foreground">
-                                                    {user?.profile?.bio}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-col my-2 text-gray-600 ">
-                                            {user && user.role === 'student' && (
-                                                <div className="flex w-fit items-center gap-2 cursor-pointer">
-                                                    <User2 className="text-[#6A38C2]" />
-                                                    <Button variant="link" className="text-[#6A38C2]">
-                                                        <Link to="/profile">View Profile</Link>
-                                                    </Button>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Avatar className="cursor-pointer hover:ring-2 hover:ring-[#6A38C2]">
+                                            <AvatarImage src={user?.profile?.profilePhoto} alt="Profile" />
+                                        </Avatar>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-80 bg-gray-900 border-gray-800 text-white">
+                                        <div className="space-y-4">
+                                            <div className="flex gap-3 items-center">
+                                                <Avatar className="ring-2 ring-[#6A38C2]">
+                                                    <AvatarImage
+                                                        src={user?.profile?.profilePhoto}
+                                                        alt="Profile"
+                                                    />
+                                                </Avatar>
+                                                <div>
+                                                    <h4 className="font-semibold">{user?.fullname}</h4>
+                                                    <p className="text-sm text-gray-400">
+                                                        {user?.profile?.bio || 'No bio provided'}
+                                                    </p>
                                                 </div>
-                                            )}
-                                            <div className="flex w-fit items-center gap-2 cursor-pointer">
-                                                <LogOut className="text-[#6A38C2]" />
-                                                <Button onClick={logoutHandler} variant="link" className="text-[#6A38C2]">
+                                            </div>
+                                            <div className="space-y-2">
+                                                {user.role === 'student' && (
+                                                    <Button 
+                                                        asChild 
+                                                        variant="ghost"
+                                                        className="w-full justify-start hover:bg-gray-800"
+                                                    >
+                                                        <Link to="/profile" className="text-[#6A38C2]">
+                                                            <User2 className="mr-2 h-4 w-4" />
+                                                            View Profile
+                                                        </Link>
+                                                    </Button>
+                                                )}
+                                                <Button
+                                                    onClick={logoutHandler}
+                                                    variant="ghost"
+                                                    className="w-full justify-start hover:bg-gray-800 text-[#6A38C2]"
+                                                >
+                                                    <LogOut className="mr-2 h-4 w-4" />
                                                     Logout
                                                 </Button>
                                             </div>
                                         </div>
-                                    </div>
-                                </PopoverContent>
-                            </Popover>
-                        )}
+                                    </PopoverContent>
+                                </Popover>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Mobile Navigation */}
+                    <div className="md:hidden">
+                        <DropdownMenu onOpenChange={setIsMobileMenuOpen}>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="hover:bg-gray-800">
+                                    {isMobileMenuOpen ? (
+                                        <X className="h-6 w-6 text-white" />
+                                    ) : (
+                                        <Menu className="h-6 w-6 text-white" />
+                                    )}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            
+                            <DropdownMenuContent 
+                                align="end" 
+                                className="bg-gray-950 text-white border-gray-800 w-64"
+                            >
+                                {user && user.role === 'recruiter' ? (
+                                    <>
+                                        <DropdownMenuItem asChild>
+                                            <Link 
+                                                to="/admin/companies" 
+                                                className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                Companies
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <Link 
+                                                to="/admin/jobs" 
+                                                className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                Jobs
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </>
+                                ) : (
+                                    <>
+                                        <DropdownMenuItem asChild>
+                                            <Link 
+                                                to="/" 
+                                                className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                Home
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <Link 
+                                                to="/jobs" 
+                                                className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                Jobs
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <Link 
+                                                to="/browse" 
+                                                className="hover:bg-gray-800 hover:text-[#02e8f8] cursor-pointer"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                Browse
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </>
+                                )}
+
+                                <DropdownMenuSeparator className="bg-gray-800" />
+
+                                {!user ? (
+                                    <>
+                                        <DropdownMenuItem asChild>
+                                            <Link 
+                                                to="/login" 
+                                                className="w-full hover:bg-gray-800"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                <Button 
+                                                    variant="outline" 
+                                                    className="w-full bg-transparent hover:bg-gray-800 border-gray-700"
+                                                >
+                                                    <span className="text-white">Login</span>
+                                                </Button>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <Link 
+                                                to="/signup" 
+                                                className="w-full hover:bg-gray-800"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                            >
+                                                <Button className="w-full bg-[#6A38C2] hover:bg-[#5b30a6]">
+                                                    Signup
+                                                </Button>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </>
+                                ) : (
+                                    <>
+                                        <DropdownMenuItem asChild>
+                                            <div className="w-full p-0">
+                                                <Popover>
+                                                    <PopoverTrigger className="w-full text-left">
+                                                        <div className="flex items-center gap-2 hover:bg-gray-800 p-2 rounded">
+                                                            <Avatar className="h-8 w-8">
+                                                                <AvatarImage 
+                                                                    src={user?.profile?.profilePhoto} 
+                                                                    alt="Profile" 
+                                                                />
+                                                            </Avatar>
+                                                            <span className="text-[#6A38C2]">Profile</span>
+                                                        </div>
+                                                    </PopoverTrigger>
+                                                    <PopoverContent 
+                                                        className="bg-gray-900 border-gray-800 text-white w-48"
+                                                        align="start"
+                                                    >
+                                                        <div className="space-y-2">
+                                                            {user.role === 'student' && (
+                                                                <Button 
+                                                                    asChild 
+                                                                    variant="ghost"
+                                                                    className="w-full justify-start hover:bg-gray-800"
+                                                                >
+                                                                    <Link to="/profile" className="text-[#6A38C2]">
+                                                                        <User2 className="mr-2 h-4 w-4" />
+                                                                        View Profile
+                                                                    </Link>
+                                                                </Button>
+                                                            )}
+                                                            <Button
+                                                                onClick={logoutHandler}
+                                                                variant="ghost"
+                                                                className="w-full justify-start hover:bg-gray-800 text-[#6A38C2]"
+                                                            >
+                                                                <LogOut className="mr-2 h-4 w-4" />
+                                                                Logout
+                                                            </Button>
+                                                        </div>
+                                                    </PopoverContent>
+                                                </Popover>
+                                            </div>
+                                        </DropdownMenuItem>
+                                    </>
+                                )}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
             </div>
